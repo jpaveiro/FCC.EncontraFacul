@@ -1,14 +1,26 @@
-import Image from "next/image";
+'use client'
 import Link from "next/link";
 
 export default function Navbar() {
+
+  // Navbar.tsx
+  const links = [
+    { label: "inicio",       href: "inicio" },
+    { label: "instituicoes", href: "instituicoes" },
+    { label: "nossa missão", href: "nossa-missao" },
+    { label: "fale conosco", href: "fale-conosco" },
+  ];
+
+  function scrollTo(id: string) {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  }
+
   return (
     <header className="w-full bg-[#00BCD4] shadow-md">
       {/* Main nav row */}
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-[64px]">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
-          {/* Placeholder logo */}
           <div className="w-9 h-9 rounded-full bg-white flex items-center justify-center">
             <svg
               className="w-5 h-5 text-[#00BCD4]"
@@ -27,17 +39,15 @@ export default function Navbar() {
 
         {/* Nav links */}
         <nav className="hidden md:flex items-center gap-8">
-          {["início", "instituições", "nossa missão", "fale conosco"].map(
-            (item) => (
-              <Link
-                key={item}
-                href="#"
-                className="text-white text-sm font-medium hover:text-white/70 transition-colors lowercase tracking-wide"
-              >
-                {item}
-              </Link>
-            )
-          )}
+          {links.map(({ label, href }) => (
+            <button
+              key={href}
+              onClick={() => scrollTo(href)}
+              className="text-white text-sm font-medium hover:text-white/70 transition-colors lowercase tracking-wide"
+            >
+              {label}
+            </button>
+          ))}
         </nav>
 
         {/* Mobile hamburger */}
